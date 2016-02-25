@@ -1,5 +1,6 @@
 from datetime import datetime
-from sqlalchemy import Column, Integer, String, DateTime
+from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
+from sqlalchemy.orm import relationship, backref
 
 from ..database import Base
 
@@ -14,6 +15,8 @@ class Auction(Base):
     start_date = Column(DateTime(6), nullable=False)
     end_date = Column(DateTime(6), nullable=False)
     regdate = Column(DateTime(6), nullable=False)
+
+    biddings = relationship('Bidding', backref='auction')
 
     def __init__(self, title, status, start_price, bid_price, start_date, end_date):
         self.title = title
